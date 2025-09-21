@@ -96,14 +96,23 @@ The entire project is managed through the `deblurring.ipynb` Jupyter Notebook. T
 ## `requirements.txt`
 
 ```
-numpy
-matplotlib
-opencv-python
-scikit-image
-tqdm
-requests
-segmentation-models-pytorch
-transformers
-timm
-einops
+# Core ML & CV Libraries
+torch==2.5.1
+torchvision==0.20.1
+torchaudio==2.5.1
+transformers==4.56.2
+segmentation-models-pytorch==0.5.0
+opencv-python==4.12.0.88
+scikit-image==0.25.2
+pillow==11.0.0
+
+# Data & Utility Libraries
+numpy==2.1.2
+matplotlib==3.10.6
+tqdm==4.67.1
+requests==2.32.5
+
+# For Transformer backbones
+timm==1.0.19
+einops==0.8.1
 ```
