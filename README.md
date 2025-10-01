@@ -1,28 +1,30 @@
-# Image Deblurring with U-Net and Vision Transformer
+# Comparative Analysis of CNN and Transformer Architectures for Image Deblurring
 
-A PyTorch project to implement, train, and compare a U-Net and a Vision Transformer (ViT) for single-image deblurring.
 
-![Result Comparison](https://i.imgur.com/your-image-placeholder.png)
-*(Placeholder: Replace with a URL to your best result image)*
+A PyTorch project to implement, train, and compare three advanced deep learning models (U-Net, ViT, and Swin Transformer) for single-image deblurring.
+
+![Result Comparison](images/result_1.png)
+![Result Comparison](images/result_2.png)
 
 ---
 
 ## Overview
 
-This project provides a complete workflow for tackling image deblurring using modern deep learning architectures. It includes scripts for synthetic data generation, a structured Jupyter Notebook for training and evaluation, and a comparison of a state-of-the-art CNN (U-Net with a ResNet50 backbone) against a Transformer-based model (ViT). The goal is to restore sharp, high-quality images from blurry inputs and evaluate which architecture performs better on this image-to-image translation task.
+This project provides a complete, end-to-end workflow for tackling image deblurring. It automates the entire data pipeline, from downloading the DIV2K dataset to generating a synthetic training set with diverse blur types. The core of the project is a comparative study of three powerful architectures: a CNN-based **U-Net**, a **TransUNet** (ViT with a CNN decoder), and a **Swin-Unet**. The goal is to restore sharp, high-quality images from blurry inputs and rigorously evaluate which architectural approach is most effective for this image restoration task.
 
 ---
 
 ## Features
 
-- **Dual Architecture Comparison:** Implements both a U-Net and a ViT for a direct performance comparison.
-- **Automated Data Setup:** The notebook automatically downloads the DIV2K dataset if it's not found locally.
-- **Synthetic Data Generation:** Includes logic to generate a diverse dataset with motion, defocus, and Gaussian blurs.
-- **Structured Workflow:** A self-contained Jupyter Notebook (`deblurring.ipynb`) handles the entire pipeline from data preparation to evaluation.
-- **Advanced U-Net Decoder:** Utilizes batch normalization and Squeeze-and-Excitation (scSE) attention in the U-Net decoder to improve quality.
-- **Efficient Fine-Tuning:** Implements a partial fine-tuning strategy for the ViT to manage computational cost.
-- **Robust Evaluation:** Evaluates models on both 224x224 crops and full-resolution images using a sliding-window inference method.
-- **Metrics:** Calculates Peak Signal-to-Noise Ratio (PSNR) and Structural Similarity Index Measure (SSIM).
+- **Three-Model Comparison:** Implements and trains a U-Net, a TransUNet (ViT), and a Swin-Unet for a comprehensive performance analysis.
+- **Automated Data Pipeline:** The notebook automatically downloads the DIV2K dataset, organizes it, generates synthetic blurs (motion, Gaussian, defocus), creates a cropped training set, and splits it into train/validation sets.
+- **Advanced Architectures:**
+    - **U-Net:** Enhanced with `decoder_use_batchnorm=True` and `decoder_attention_type='scse'` to improve quality.
+    - **TransUNet & Swin-Unet:** Implement skip connections to merge high-resolution details from the encoder with the decoder path, solving the blocky-artifact issue common in pure Transformer models.
+- **Robust Training:** Utilizes a combined L1 + VGG Perceptual + SSIM Loss, a `ReduceLROnPlateau` learning rate scheduler, and an `EarlyStopping` mechanism to save time and prevent overfitting.
+- **Comprehensive Evaluation:** Evaluates all three models on both random 224x224 test crops and random full-resolution images using a sliding-window inference method with padding.
+- **Quantitative Analysis:** Includes a final evaluation block to calculate and compare the average PSNR and SSIM for all models across the entire test set.
+
 
 ---
 
@@ -30,8 +32,8 @@ This project provides a complete workflow for tackling image deblurring using mo
 
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repository-url>
-    cd <your-repository-name>
+    git clone https://github.com/PeiyaoTao/Image-Deblurring.git
+    cd Image-Deblurring
     ```
 
 2.  **Create a Conda Environment:**
